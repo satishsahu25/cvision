@@ -13,18 +13,28 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        # inputtype = request.form.get('usertype')
+        inputtype = request.form.get('usertype')
+        print(inputtype)
 
         user = User.query.filter_by(email=email).first()
+        print(user.usertype)
         if user:
             if check_password_hash(user.password, password):
-                flash('Logged in successfully!', category='success')
-                login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                if user.usertype=="student" and inputtype is None:
+                    flash('Logged in successfully! as student', category='success')
+                    login_user(user, remember=True)
+                    return redirect(url_for('views.home'))
+                elif user.usertype=="faculty" and inputtype=="faculty":
+                    flash('Logged in successfully! as faculty', category='success')
+                    login_user(user, remember=True)
+                    return redirect(url_for('views.home'))
+                else:
+                    flash('Please select correct user type', category='error')
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
             flash('Email does not exist.', category='error')
+        
 
     return render_template("login.html", user=current_user)
 

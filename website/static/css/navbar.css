@@ -5,6 +5,20 @@ header {
     overflow: hidden;
 
   }
+  .flashmsg{
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    border-bottom: 5px solid #1b509e;
+    padding: 10px 10px;
+    /* border-radius: 5px; */
+    background-color: #6988b5;
+  }
+  .msgbtnstyle{
+    border: none;
+    background: none;
+    font-size: 20px;
+  }
 
   nav {
     display: inline-block;
